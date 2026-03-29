@@ -4,7 +4,7 @@ import { start } from './start.js';
 
 export async function restart() {
   print.gap();
-  print.brand('Restarting gitwrite...');
+  print.brand('Restarting gitwrit...');
   await stop();
   await start();
 }

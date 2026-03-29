@@ -1,6 +1,6 @@
-# Contributing to gitwrite
+# Contributing to gitwrit
 
-Thank you for your interest in contributing. gitwrite is built for people who write seriously, and contributions that share that spirit are welcome at every level — from adding a single word to the branch name lists, to building new file type support, to improving the core daemon.
+Thank you for your interest in contributing. gitwrit is built for people who write seriously, and contributions that share that spirit are welcome at every level — from adding a single word to the branch name lists, to building new file type support, to improving the core daemon.
 
 ---
 
@@ -8,7 +8,7 @@ Thank you for your interest in contributing. gitwrite is built for people who wr
 
 ### Word lists
 
-gitwrite generates session branch names by combining one word from each of three lists in `src/words.json` — adjectives, nouns, and verbs. The result looks like `crimson-walrus-stumbling` or `teal-fox-bouncing`.
+gitwrit generates session branch names by combining one word from each of three lists in `src/words.json` — adjectives, nouns, and verbs. The result looks like `crimson-walrus-stumbling` or `teal-fox-bouncing`.
 
 Adding words is one of the lowest-barrier contributions possible. Just open a pull request against `src/words.json`. A few guidelines:
 
@@ -19,7 +19,7 @@ Adding words is one of the lowest-barrier contributions possible. Just open a pu
 
 ### Extensions
 
-gitwrite is designed to be extended. See [EXTENSIONS.md](EXTENSIONS.md) for documentation on the three supported extension surfaces:
+gitwrit is designed to be extended. See [EXTENSIONS.md](EXTENSIONS.md) for documentation on the three supported extension surfaces:
 
 - **File type watchers** — add support for new file types beyond Markdown
 - **Commit message formatters** — customize how commit messages are generated
@@ -38,8 +38,8 @@ The command surface is intentionally lean. Open an issue to discuss before build
 ## Setup
 
 ```sh
-git clone https://github.com/TBiddy/gitwrite
-cd gitwrite
+git clone https://github.com/TBiddy/gitwrit
+cd gitwrit
 npm install
 ```
 
@@ -47,7 +47,7 @@ Verify everything works:
 
 ```sh
 npm test                      # run the integration test suite
-node bin/gitwrite.js help     # smoke test the CLI
+node bin/gitwrit.js help     # smoke test the CLI
 ```
 
 ---
@@ -55,9 +55,9 @@ node bin/gitwrite.js help     # smoke test the CLI
 ## Project structure
 
 ```
-gitwrite/
+gitwrit/
 ├── bin/
-│   └── gitwrite.js          ← CLI entry point
+│   └── gitwrit.js          ← CLI entry point
 ├── src/
 │   ├── commands/            ← one file per command
 │   ├── daemon.js            ← background watcher process
@@ -81,8 +81,8 @@ A few things worth knowing before you dig in:
 - **ESM throughout** — `"type": "module"` in `package.json`, no CommonJS
 - **All Git operations live in `src/git.js`** — nothing else calls `simple-git` directly
 - **All display primitives live in `src/ui.js`** — nothing else calls `chalk` directly
-- **All path constants live in `src/paths.js`** — nothing hardcodes `~/.gitwrite` anywhere else
-- **The daemon is just `gitwrite __daemon`** — a hidden subcommand, not a separate binary; `start.js` spawns it detached
+- **All path constants live in `src/paths.js`** — nothing hardcodes `~/.gitwrit` anywhere else
+- **The daemon is just `gitwrit __daemon`** — a hidden subcommand, not a separate binary; `start.js` spawns it detached
 
 ---
 
@@ -112,13 +112,13 @@ If something is not working, please include:
 - Your OS and Node.js version (`node --version`)
 - The command you ran
 - What you expected vs. what happened
-- The output of `gitwrite logs` if the daemon was involved
+- The output of `gitwrit logs` if the daemon was involved
 
 ---
 
 ## Code of conduct
 
-Be kind. gitwrite is built for a broad audience — engineers, researchers, writers, students. Contributions and conversations should be welcoming to all of them.
+Be kind. gitwrit is built for a broad audience — engineers, researchers, writers, students. Contributions and conversations should be welcoming to all of them.
 
 ---
 

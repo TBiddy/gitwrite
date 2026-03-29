@@ -25,7 +25,7 @@ const FIELDS = [
 async function editField(key, currentValue) {
   if (key === 'fileTypes') {
     return checkbox({
-      message: 'Which file types should gitwrite watch?',
+      message: 'Which file types should gitwrit watch?',
       choices: [
         { name: '.md',  value: '.md',  checked: currentValue.includes('.md')  },
         { name: '.mdx', value: '.mdx', checked: currentValue.includes('.mdx') },
@@ -37,7 +37,7 @@ async function editField(key, currentValue) {
 
   if (key === 'debounce') {
     const choice = await select({
-      message: 'How long should gitwrite wait after a save before committing?',
+      message: 'How long should gitwrit wait after a save before committing?',
       choices: [
         { name: '3 seconds  (recommended)', value: 3000  },
         { name: '5 seconds',                value: 5000  },
@@ -55,7 +55,7 @@ async function editField(key, currentValue) {
 
   if (key === 'pushInterval') {
     const choice = await select({
-      message: 'How often should gitwrite push to remote?',
+      message: 'How often should gitwrit push to remote?',
       choices: [
         { name: 'Every 5 minutes  (recommended)', value: 300000  },
         { name: 'Every 10 minutes',               value: 600000  },
@@ -220,8 +220,8 @@ async function configureLocal(dir) {
 export async function config() {
   if (!(await globalConfigExists())) {
     print.gap();
-    print.bad('gitwrite is not set up yet.');
-    print.hint('Run gitwrite init first.');
+    print.bad('gitwrit is not set up yet.');
+    print.hint('Run gitwrit init first.');
     print.gap();
     return;
   }

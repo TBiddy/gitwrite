@@ -16,11 +16,11 @@ export async function logs(n = 20) {
   const lines = await tailLog(n);
 
   print.gap();
-  print.brand(`gitwrite log — last ${n} entries`);
+  print.brand(`gitwrit log — last ${n} entries`);
   print.gap();
 
   if (lines.length === 0) {
-    print.hint('No activity yet. Run gitwrite start to begin.');
+    print.hint('No activity yet. Run gitwrit start to begin.');
     print.gap();
     return;
   }

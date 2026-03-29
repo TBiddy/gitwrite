@@ -9,8 +9,8 @@ export async function add(dirArg) {
 
   if (!(await globalConfigExists())) {
     print.gap();
-    print.bad('gitwrite is not set up yet.');
-    print.hint('Run gitwrite init first.');
+    print.bad('gitwrit is not set up yet.');
+    print.hint('Run gitwrit init first.');
     print.gap();
     return;
   }
@@ -37,7 +37,7 @@ export async function add(dirArg) {
     print.warn(`${dir} is already in your watch list.`);
   } else {
     print.good(`${dir} added to your watch list.`);
-    print.hint('Run gitwrite restart to start watching it.');
+    print.hint('Run gitwrit restart to start watching it.');
   }
 
   print.gap();

@@ -26,8 +26,8 @@ function formatUptime(startedAt) {
 export async function status() {
   if (!(await globalConfigExists())) {
     print.gap();
-    print.brand('gitwrite is not set up.');
-    print.hint('Run gitwrite init to get started.');
+    print.brand('gitwrit is not set up.');
+    print.hint('Run gitwrit init to get started.');
     print.gap();
     return;
   }
@@ -40,14 +40,14 @@ export async function status() {
 
   if (!pid) {
     if (state.status === STATE.PAUSED) {
-      print.brand('gitwrite is paused.');
+      print.brand('gitwrit is paused.');
       print.gap();
       print.info(`Resumed from sleep — last active ${timeAgo(state.pausedAt)}.`);
       print.gap();
-      print.hint('Run gitwrite start to resume watching.');
+      print.hint('Run gitwrit start to resume watching.');
     } else {
-      print.brand('gitwrite is not running.');
-      print.hint('Run gitwrite start to begin watching.');
+      print.brand('gitwrit is not running.');
+      print.hint('Run gitwrit start to begin watching.');
     }
     print.gap();
     return;
@@ -57,9 +57,9 @@ export async function status() {
     (Date.now() - new Date(state.resumedAt)) < 60000;
 
   if (resumedAfterSleep) {
-    print.brand('gitwrite is running — resumed after sleep.');
+    print.brand('gitwrit is running — resumed after sleep.');
   } else {
-    print.brand('gitwrite is running.');
+    print.brand('gitwrit is running.');
   }
 
   print.gap();

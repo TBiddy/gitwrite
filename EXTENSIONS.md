@@ -1,13 +1,13 @@
-# gitwrite Extensions
+# gitwrit Extensions
 
-gitwrite is designed to be extended. This document describes the three supported extension surfaces, how they work, and how to build one.
+gitwrit is designed to be extended. This document describes the three supported extension surfaces, how they work, and how to build one.
 
-Extensions are loaded from your `~/.gitwriterc.json` config under an `"extensions"` key:
+Extensions are loaded from your `~/.gitwritrc.json` config under an `"extensions"` key:
 
 ```json
 {
   "extensions": [
-    "gitwrite-latex",
+    "gitwrit-latex",
     "./my-local-extension.js"
   ]
 }
@@ -21,7 +21,7 @@ Each value is either an npm package name or a path to a local file. Extensions a
 
 ### 1. File type watchers
 
-By default, gitwrite watches `.md` and `.mdx` files. A file type watcher extension adds support for additional file types — without the user having to manage anything manually.
+By default, gitwrit watches `.md` and `.mdx` files. A file type watcher extension adds support for additional file types — without the user having to manage anything manually.
 
 **Example use cases:**
 - `.tex` files for LaTeX writers and academics
@@ -35,7 +35,7 @@ By default, gitwrite watches `.md` and `.mdx` files. A file type watcher extensi
 // my-extension.js
 export default {
   type: 'fileWatcher',
-  name: 'gitwrite-latex',
+  name: 'gitwrit-latex',
   fileTypes: ['.tex', '.bib'],
 
   // optional: transform the file before committing
@@ -52,7 +52,7 @@ The `fileTypes` array is merged with the user's configured file types at daemon 
 
 ### 2. Commit message formatters
 
-By default, gitwrite generates commit messages in the format:
+By default, gitwrit generates commit messages in the format:
 
 ```
 auto: notes/ideas.md
@@ -70,7 +70,7 @@ A commit message formatter extension lets you customize that — per project, pe
 ```js
 export default {
   type: 'commitFormatter',
-  name: 'gitwrite-semantic',
+  name: 'gitwrit-semantic',
 
   // receives context about the file being committed
   // must return a string — the commit message
@@ -100,7 +100,7 @@ An output integration runs after a successful push. It receives information abou
 ```js
 export default {
   type: 'outputIntegration',
-  name: 'gitwrite-slack',
+  name: 'gitwrit-slack',
 
   // called after every successful push
   // return value is ignored
@@ -109,7 +109,7 @@ export default {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        text: `gitwrite pushed ${commitCount} commit(s) from ${branch}`,
+        text: `gitwrit pushed ${commitCount} commit(s) from ${branch}`,
       }),
     });
   },
@@ -124,21 +124,21 @@ Multiple output integrations can be active simultaneously. They run in sequence 
 
 Extensions are standard npm packages. To publish one:
 
-1. Name your package with the `gitwrite-` prefix (e.g. `gitwrite-latex`, `gitwrite-slack`)
+1. Name your package with the `gitwrit-` prefix (e.g. `gitwrit-latex`, `gitwrit-slack`)
 2. Export a default object matching one of the interfaces above
 3. Publish to npm: `npm publish`
 
 Users install it like any other package:
 
 ```sh
-npm install -g gitwrite-latex
+npm install -g gitwrit-latex
 ```
 
 And register it in their config:
 
 ```json
 {
-  "extensions": ["gitwrite-latex"]
+  "extensions": ["gitwrit-latex"]
 }
 ```
 
@@ -147,7 +147,7 @@ And register it in their config:
 ## Things to keep in mind
 
 - Extensions run inside the daemon process — unhandled errors can crash the watcher. Wrap async operations in `try/catch`.
-- The daemon restarts automatically on `gitwrite restart` — extensions are reloaded each time.
+- The daemon restarts automatically on `gitwrit restart` — extensions are reloaded each time.
 - If you are building an output integration that calls an external API, make it resilient to network failures. A failed push notification should never block the commit cycle.
 - Keep extensions focused. One extension, one concern.
 
@@ -155,4 +155,4 @@ And register it in their config:
 
 ## Listing your extension
 
-Once your extension is published and working, open a pull request to add it to the [community extensions list](https://github.com/TBiddy/gitwrite/wiki/Extensions). Include the package name, a one-line description, and which extension surface it uses.
+Once your extension is published and working, open a pull request to add it to the [community extensions list](https://github.com/TBiddy/gitwrit/wiki/Extensions). Include the package name, a one-line description, and which extension surface it uses.

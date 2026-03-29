@@ -11,7 +11,7 @@ export async function stop() {
     pid = parseInt(raw.trim(), 10);
   } catch {
     print.gap();
-    print.bad('gitwrite is not running.');
+    print.bad('gitwrit is not running.');
     print.gap();
     return;
   }
@@ -22,7 +22,7 @@ export async function stop() {
     await unlink(PID_FILE).catch(() => {});
     await markStopped();
     print.gap();
-    print.bad('gitwrite is not running.');
+    print.bad('gitwrit is not running.');
     print.gap();
     return;
   }
@@ -36,7 +36,7 @@ export async function stop() {
   await markStopped();
 
   print.gap();
-  print.brand('gitwrite stopped.');
+  print.brand('gitwrit stopped.');
   print.gap();
 
   if (state.sessionCommits > 0) {

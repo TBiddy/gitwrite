@@ -11,7 +11,7 @@ import {
   saveGlobalConfig,
   addWatchPath,
 } from '../config.js';
-import { GITWRITE_DIR } from '../paths.js';
+import { GITWRIT_DIR } from '../paths.js';
 import { isGitRepo, hasRemote } from '../git.js';
 
 // ─── main ─────────────────────────────────────────────────────────────────────
@@ -23,16 +23,16 @@ export async function init() {
   // ── first-run: global setup ────────────────────────────────────────────────
 
   if (isFirstRun) {
-    print.brand("Welcome to gitwrite. Let's get you set up.");
+    print.brand("Welcome to gitwrit. Let's get you set up.");
     print.gap();
     print.divider('Global defaults');
     print.hint('These apply to every directory you watch.');
     print.gap();
 
-    await mkdir(GITWRITE_DIR, { recursive: true });
+    await mkdir(GITWRIT_DIR, { recursive: true });
 
     const fileTypes = await checkbox({
-      message: 'Which file types should gitwrite watch?',
+      message: 'Which file types should gitwrit watch?',
       choices: [
         { name: '.md',   value: '.md',   checked: true },
         { name: '.mdx',  value: '.mdx',  checked: true },
@@ -42,7 +42,7 @@ export async function init() {
     });
 
     const debounceChoice = await select({
-      message: 'How long should gitwrite wait after a save before committing?',
+      message: 'How long should gitwrit wait after a save before committing?',
       choices: [
         { name: '3 seconds  (recommended)', value: 3000 },
         { name: '5 seconds',                value: 5000 },
@@ -58,7 +58,7 @@ export async function init() {
     }
 
     const pushChoice = await select({
-      message: 'How often should gitwrite push to remote?',
+      message: 'How often should gitwrit push to remote?',
       choices: [
         { name: 'Every 5 minutes  (recommended)', value: 300000 },
         { name: 'Every 10 minutes',               value: 600000 },
@@ -111,7 +111,7 @@ export async function init() {
   const repoValid = await isGitRepo(dir);
   if (!repoValid) {
     print.bad(`${dir} is not a Git repo.`);
-    print.hint('Run git init here first, then run gitwrite init again.');
+    print.hint('Run git init here first, then run gitwrit init again.');
     print.gap();
     process.exit(1);
   }
@@ -120,9 +120,9 @@ export async function init() {
   const remoteValid = await hasRemote(dir);
   if (!remoteValid) {
     print.bad('No Git remote configured.');
-    print.hint('gitwrite pushes your work to a remote repository to keep it safe.');
+    print.hint('gitwrit pushes your work to a remote repository to keep it safe.');
     print.hint('Add one first:  git remote add origin <url>');
-    print.hint('Then run gitwrite init again.');
+    print.hint('Then run gitwrit init again.');
     print.gap();
     process.exit(1);
   }
@@ -141,7 +141,7 @@ export async function init() {
   }
 
   if (!useGlobalDefaults) {
-    print.hint('Local overrides can be set anytime with gitwrite config.');
+    print.hint('Local overrides can be set anytime with gitwrit config.');
   }
 
   // register the directory in global watch list
@@ -167,6 +167,6 @@ export async function init() {
   print.row('Committing', `${config.debounce / 1000}s after last save`);
   print.row('Pushing',    `Every ${config.pushInterval / 60000} min`);
   print.gap();
-  print.hint("Run gitwrite start whenever you're ready.");
+  print.hint("Run gitwrit start whenever you're ready.");
   print.gap();
 }

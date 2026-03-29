@@ -4,7 +4,7 @@ import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
 import { print } from '../ui.js';
-import { PID_FILE, GITWRITE_DIR } from '../paths.js';
+import { PID_FILE, GITWRIT_DIR } from '../paths.js';
 import { globalConfigExists, loadGlobalConfig } from '../config.js';
 import { readState, STATE } from '../state.js';
 import { generateBranchName } from '../expansions.js';
@@ -42,8 +42,8 @@ async function getLivePid() {
 export async function start() {
   if (!(await globalConfigExists())) {
     print.gap();
-    print.bad('gitwrite is not set up yet.');
-    print.hint('Run gitwrite init in a directory to get started.');
+    print.bad('gitwrit is not set up yet.');
+    print.hint('Run gitwrit init in a directory to get started.');
     print.gap();
     return;
   }
@@ -53,7 +53,7 @@ export async function start() {
   if (config.watch.length === 0) {
     print.gap();
     print.bad('No directories registered.');
-    print.hint('Run gitwrite init in a directory to register it.');
+    print.hint('Run gitwrit init in a directory to register it.');
     print.gap();
     return;
   }
@@ -61,8 +61,8 @@ export async function start() {
   const livePid = await getLivePid();
   if (livePid) {
     print.gap();
-    print.bad(`gitwrite is already running. (PID ${livePid})`);
-    print.hint('Use gitwrite stop to stop it first.');
+    print.bad(`gitwrit is already running. (PID ${livePid})`);
+    print.hint('Use gitwrit stop to stop it first.');
     print.gap();
     return;
   }
@@ -75,14 +75,14 @@ export async function start() {
     sessionBranch = await generateBranchName();
   }
 
-  await mkdir(GITWRITE_DIR, { recursive: true });
+  await mkdir(GITWRIT_DIR, { recursive: true });
 
   const daemon = spawn(process.execPath, [DAEMON_SCRIPT], {
     detached: true,
     stdio: 'ignore',
     env: {
       ...process.env,
-      GITWRITE_SESSION_BRANCH: sessionBranch || '',
+      GITWRIT_SESSION_BRANCH: sessionBranch || '',
     },
   });
 
@@ -95,9 +95,9 @@ export async function start() {
   print.gap();
 
   if (wasUnclean) {
-    print.brand('gitwrite is running — picked up where you left off.');
+    print.brand('gitwrit is running — picked up where you left off.');
   } else {
-    print.brand('gitwrite is running.');
+    print.brand('gitwrit is running.');
   }
 
   print.gap();

@@ -9,7 +9,7 @@ export async function remove(dirArg) {
 
   if (!(await globalConfigExists())) {
     print.gap();
-    print.bad('gitwrite is not set up yet.');
+    print.bad('gitwrit is not set up yet.');
     print.gap();
     return;
   }
@@ -33,7 +33,7 @@ export async function remove(dirArg) {
     print.warn(`${dir} was not in your watch list.`);
   } else {
     print.good('Done.');
-    print.hint('Run gitwrite restart to apply.');
+    print.hint('Run gitwrit restart to apply.');
   }
 
   print.gap();
