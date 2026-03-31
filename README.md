@@ -4,7 +4,7 @@
 
 Made for `git`-ters and `writ`-ters.
 
-gitwrit watches your Markdown files and quietly commits and pushes them to your Git repository — no manual `git add`, no `git commit`, no `git push`. You write. gitwrit handles the rest.
+**gitwrit**  watches your Markdown files and quietly commits and pushes them to your Git repository — no manual `git add`, no `git commit`, no `git push`. You write. gitwrit handles the rest.
 
 It is built for engineers writing internal specs, researchers building private knowledge bases, AI practitioners documenting models and experiments, and anyone who wants the safety of version control without the overhead of Git discipline. Your files stay in your own repository, on your own terms—not in someone else's cloud.
 
