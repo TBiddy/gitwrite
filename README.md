@@ -2,6 +2,8 @@
 
 **Private, versioned writing for people who live in the terminal.**
 
+Made for `git`-ters and `writ`-ters.
+
 gitwrit watches your Markdown files and quietly commits and pushes them to your Git repository — no manual `git add`, no `git commit`, no `git push`. You write. gitwrit handles the rest.
 
 It is built for engineers writing internal specs, researchers building private knowledge bases, AI practitioners documenting models and experiments, and anyone who wants the safety of version control without the overhead of Git discipline. Your files stay in your own repository, on your own terms—not in someone else's cloud.
@@ -112,10 +114,6 @@ This is especially useful for proprietary documentation — internal specs, rese
 gitwrit is open source and built to be extended. Contributions are welcome at every level — word lists, new file type support, commit message formatters, and more. See [CONTRIBUTING.md](CONTRIBUTING.md) and [EXTENSIONS.md](EXTENSIONS.md) to get started.
 
 ---
-
-gitwrit
-
-Made for `git`-ters and `writ`-ters.
 
 ## License
 
