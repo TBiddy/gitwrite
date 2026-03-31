@@ -1,4 +1,4 @@
-import { loadGlobalConfig } from './config.js';
+import { loadGlobalConfig } from './settings.js';
 import { createWatcher } from './watcher.js';
 import { createScheduler } from './scheduler.js';
 import { commitFile, commitAll, createAndCheckoutBranch, branchExists } from './git.js';
