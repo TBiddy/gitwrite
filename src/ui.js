@@ -1,26 +1,31 @@
 import chalk from 'chalk';
 
+// ─── palette ──────────────────────────────────────────────────────────────────
+
+export const TEAL = '#2EC4B6';
+export const PINK = '#F72585';
+
 // ─── sigil + brand ────────────────────────────────────────────────────────────
 
 export const SIGIL = '✦';
 
-export const brand  = (msg) => chalk.white(`\n  ${SIGIL} ${msg}`);
-export const info   = (msg) => chalk.white(`    ${msg}`);
-export const good   = (msg) => chalk.green(`  ✔  ${msg}`);
-export const bad    = (msg) => chalk.red(`  ✗  ${msg}`);
-export const warn   = (msg) => chalk.yellow(`  ⚠  ${msg}`);
-export const hint   = (msg) => chalk.dim(`    ${msg}`);
+export const brand   = (msg) => chalk.hex(TEAL)(`\n  ${SIGIL} ${msg}`);
+export const info    = (msg) => chalk.white(`    ${msg}`);
+export const good    = (msg) => chalk.hex(TEAL)(`  ✔  ${msg}`);
+export const bad     = (msg) => chalk.red(`  ✗  ${msg}`);
+export const warn    = (msg) => chalk.hex(PINK)(`  ⚠  ${msg}`);
+export const hint    = (msg) => chalk.dim(`    ${msg}`);
 export const divider = (label) =>
-  chalk.dim(`\n  ${'─'.repeat(41)}\n  ${label}\n  ${'─'.repeat(41)}`);
+  chalk.hex(TEAL).dim(`\n  ${'─'.repeat(41)}\n  `) +
+  chalk.hex(TEAL)(label) +
+  chalk.hex(TEAL).dim(`\n  ${'─'.repeat(41)}`);
 
 // ─── key/value rows ───────────────────────────────────────────────────────────
 
-// prints a two-column row like:
-//   watching    ~/notes
 export function row(key, value, tag) {
   const k = chalk.dim(key.padEnd(14));
   const v = chalk.white(value);
-  const t = tag ? chalk.dim(` (${tag})`) : '';
+  const t = tag ? chalk.hex(PINK).dim(` (${tag})`) : '';
   return `    ${k}${v}${t}`;
 }
 
@@ -47,8 +52,8 @@ export const print = {
 export function timeAgo(date) {
   if (!date) return 'never';
   const seconds = Math.floor((Date.now() - new Date(date)) / 1000);
-  if (seconds < 10)  return 'just now';
-  if (seconds < 60)  return `${seconds}s ago`;
+  if (seconds < 10)   return 'just now';
+  if (seconds < 60)   return `${seconds}s ago`;
   if (seconds < 3600) return `${Math.floor(seconds / 60)}m ago`;
   if (seconds < 86400) return `${Math.floor(seconds / 3600)}h ago`;
   return `${Math.floor(seconds / 86400)}d ago`;
@@ -57,7 +62,7 @@ export function timeAgo(date) {
 // ─── ms formatting ────────────────────────────────────────────────────────────
 
 export function formatMs(ms) {
-  if (ms < 1000) return `${ms}ms`;
+  if (ms < 1000)  return `${ms}ms`;
   if (ms < 60000) return `${ms / 1000}s`;
   return `${ms / 60000} min`;
 }

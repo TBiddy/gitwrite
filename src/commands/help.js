@@ -1,5 +1,6 @@
 import chalk from 'chalk';
-import { print } from '../ui.js';
+import { print, TEAL, PINK } from '../ui.js';
+import { renderBanner } from '../banner.js';
 
 const commands = [
   { name: 'init',    desc: 'Set up gitwrit in the current directory'                    },
@@ -8,7 +9,7 @@ const commands = [
   { name: 'stop',    desc: 'Stop the daemon gracefully'                                  },
   { name: 'restart', desc: 'Stop and restart  (useful after config changes)'             },
   { name: '',        desc: ''                                                             },
-  { name: 'status',  desc: 'Show what gitwrit is watching and what it\'s done lately'   },
+  { name: 'status',  desc: 'Show what gitwrit is watching and what it\'s done lately'    },
   { name: 'logs',    desc: 'Tail the activity log'                                       },
   { name: '',        desc: ''                                                             },
   { name: 'config',  desc: 'Edit your global defaults or local directory overrides'      },
@@ -27,15 +28,13 @@ const tips = [
 ];
 
 export function help() {
-  print.gap();
-  print.brand('gitwrit — Private, versioned writing for people who live in the terminal.');
-  print.gap();
+  renderBanner();
 
   console.log(chalk.dim('  commands'));
   print.gap();
 
   for (const { name, desc } of commands) {
-    const k = chalk.white(name.padEnd(12));
+    const k = chalk.hex(TEAL)(name.padEnd(12));
     console.log(`    ${k}${desc}`);
   }
 
@@ -48,6 +47,9 @@ export function help() {
   }
 
   print.gap();
-  console.log(chalk.dim('  docs + source    github.com/TBiddy/gitwrit'));
+  console.log(
+    chalk.dim('  docs + source    ') +
+    chalk.hex(TEAL)('github.com/TBiddy/gitwrit')
+  );
   print.gap();
 }

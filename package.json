@@ -1,10 +1,10 @@
 {
   "name": "gitwrit",
-  "version": "0.1.0",
+  "version": "0.2.1",
   "description": "Private, versioned writing for people who live in the terminal.",
   "type": "module",
   "bin": {
-    "gitwrit": "bin/gitwrit.js"
+    "gitwrit": "./bin/gitwrit.js"
   },
   "files": [
     "bin",
@@ -19,9 +19,13 @@
   },
   "dependencies": {
     "@inquirer/prompts": "^5.0.0",
+    "boxen": "^7.1.1",
     "chalk": "^5.3.0",
     "chokidar": "^3.6.0",
     "commander": "^12.1.0",
+    "figlet": "^1.11.0",
+    "gradient-string": "^2.0.2",
+    "ora": "^8.2.0",
     "simple-git": "^3.27.0"
   }
 }

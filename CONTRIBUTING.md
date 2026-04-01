@@ -46,7 +46,7 @@ npm install
 Verify everything works:
 
 ```sh
-npm test                      # run the integration test suite
+npm test                     # run the integration test suite
 node bin/gitwrit.js help     # smoke test the CLI
 ```
 
@@ -57,19 +57,22 @@ node bin/gitwrit.js help     # smoke test the CLI
 ```
 gitwrit/
 ├── bin/
-│   └── gitwrit.js          ← CLI entry point
+│   └── gitwrit.js           ← CLI entry point
 ├── src/
 │   ├── commands/            ← one file per command
+│   ├── banner.js            ← ASCII art banner + teal/pink gradient
 │   ├── daemon.js            ← background watcher process
-│   ├── watcher.js           ← chokidar file watching
-│   ├── scheduler.js         ← periodic push logic
-│   ├── git.js               ← all Git operations
-│   ├── config.js            ← global + local config
-│   ├── logger.js            ← activity log
-│   ├── state.js             ← daemon state (running/paused/stopped)
 │   ├── expansions.js        ← branch name generation
-│   ├── ui.js                ← shared display helpers
+│   ├── git.js               ← all Git operations
+│   ├── logger.js            ← activity log
+│   ├── notify.js            ← native OS push failure notifications
 │   ├── paths.js             ← shared path constants
+│   ├── scheduler.js         ← periodic push logic
+│   ├── settings.js          ← global + local config
+│   ├── state.js             ← daemon state (running/paused/stopped)
+│   ├── ui.js                ← shared display helpers + teal/pink palette
+│   ├── updater.js           ← npm update checker (24hr cache)
+│   ├── watcher.js           ← chokidar file watching
 │   └── words.json           ← adjective/noun/verb word lists
 ├── test/
 │   └── integration.test.js  ← integration tests (node:test, no framework)
@@ -92,7 +95,7 @@ A few things worth knowing before you dig in:
 - Comment the *why*, not the *what*
 - One concern per file — if a file is growing, it probably wants to be split
 - Proof your CLI output — copy and terminal output are part of the product; read your output before submitting
-- **Important:** It is absloutely fine to use AI tools for commits, as this was also built with the help of Claude Code.
+- **Important:** It is absolutely fine to use AI tools for commits, as this was also built with the help of Claude Code.
 
 ---
 
@@ -119,7 +122,7 @@ If something is not working, please include:
 
 ## Code of conduct
 
-Please be kind. 🙏 gitwrit is built for a broad audience — engineers, researchers, writers, students. Contributions and conversations should be welcoming to all of them. Humor is welcome as long it is inclusive.
+Please be kind. 🙏 gitwrit is built for a broad audience — engineers, researchers, writers, students. Contributions and conversations should be welcoming to all of them. Humor is welcome as long as it is inclusive.
 
 ---
 

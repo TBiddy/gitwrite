@@ -2,8 +2,10 @@ import { checkbox, select, confirm, input } from '@inquirer/prompts';
 import { mkdir } from 'fs/promises';
 import { resolve } from 'path';
 import { cwd } from 'process';
+import ora from 'ora';
 
-import { print } from '../ui.js';
+import { print, TEAL, PINK } from '../ui.js';
+import { renderBanner } from '../banner.js';
 import {
   DEFAULTS,
   globalConfigExists,
@@ -23,7 +25,8 @@ export async function init() {
   // ── first-run: global setup ────────────────────────────────────────────────
 
   if (isFirstRun) {
-    print.brand("Welcome to gitwrit. Let's get you set up.");
+    renderBanner();
+    print.brand('Welcome to gitwrit. Let\'s get you set up.');
     print.gap();
     print.divider('Global defaults');
     print.hint('These apply to every directory you watch.');
@@ -77,7 +80,7 @@ export async function init() {
       message: 'Default branch mode?',
       choices: [
         {
-          name: "Current branch   — commit to whatever branch you're on",
+          name: 'Current branch   — commit to whatever branch you\'re on',
           value: 'current',
         },
         {
@@ -107,19 +110,23 @@ export async function init() {
   print.divider(`Registering ${dir}`);
   print.gap();
 
-  // hard gate: must be a git repo
+  // validate repo with spinner
+  const spinner = ora({
+    text: 'Checking repository...',
+    color: 'cyan',
+  }).start();
+
   const repoValid = await isGitRepo(dir);
   if (!repoValid) {
-    print.bad(`${dir} is not a Git repo.`);
+    spinner.fail('Not a Git repository.');
     print.hint('Run git init here first, then run gitwrit init again.');
     print.gap();
     process.exit(1);
   }
 
-  // hard gate: must have a remote
   const remoteValid = await hasRemote(dir);
   if (!remoteValid) {
-    print.bad('No Git remote configured.');
+    spinner.fail('No Git remote configured.');
     print.hint('gitwrit pushes your work to a remote repository to keep it safe.');
     print.hint('Add one first:  git remote add origin <url>');
     print.hint('Then run gitwrit init again.');
@@ -127,11 +134,10 @@ export async function init() {
     process.exit(1);
   }
 
-  print.good('Valid Git repo found.');
-  print.good('Remote origin configured.');
+  spinner.succeed('Valid Git repo with remote confirmed.');
   print.gap();
 
-  // local overrides — only ask if not first run (first run just inherits global)
+  // local overrides — only ask if not first run
   let useGlobalDefaults = true;
   if (!isFirstRun) {
     useGlobalDefaults = await confirm({
@@ -144,7 +150,6 @@ export async function init() {
     print.hint('Local overrides can be set anytime with gitwrit config.');
   }
 
-  // register the directory in global watch list
   const added = await addWatchPath({ type: 'directory', path: dir });
 
   print.gap();
@@ -167,6 +172,6 @@ export async function init() {
   print.row('Committing', `${config.debounce / 1000}s after last save`);
   print.row('Pushing',    `Every ${config.pushInterval / 60000} min`);
   print.gap();
-  print.hint("Run gitwrit start whenever you're ready.");
+  print.hint('Run gitwrit start whenever you\'re ready.');
   print.gap();
 }

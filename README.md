@@ -4,7 +4,7 @@
 
 Made for `git`-ters and `writ`-ters.
 
-**gitwrit**  watches your Markdown files and quietly commits and pushes them to your Git repository — no manual `git add`, no `git commit`, no `git push`. You write. gitwrit handles the rest.
+**gitwrit** watches your Markdown files and quietly commits and pushes them to your Git repository — no manual `git add`, no `git commit`, no `git push`. You write. gitwrit handles the rest.
 
 It is built for engineers writing internal specs, researchers building private knowledge bases, AI practitioners documenting models and experiments, and anyone who wants the safety of version control without the overhead of Git discipline. Your files stay in your own repository, on your own terms—not in someone else's cloud.
 
@@ -40,7 +40,7 @@ gitwrit init    # first run sets up global defaults + registers this directory
 gitwrit start   # start watching
 ```
 
-That's it. Write something, save it, and gitwrit commits it. 
+That's it. Write something, save it, and gitwrit commits it.
 
 ---
 
@@ -93,6 +93,18 @@ gitwrit supports two branch modes, configurable globally or per directory.
 
 ---
 
+## Updates
+
+gitwrit checks for updates automatically after every command. If a newer version is available, you will see a single note at the bottom of your output:
+
+```
+  · Update available: 0.2.1 → 0.3.0   Run npm install -g gitwrit to update.
+```
+
+The check runs in the background, caches for 24 hours, and fails silently if you are offline. It will never interrupt or slow down your workflow.
+
+---
+
 ## Requirements
 
 - Node.js ≥ 18
@@ -105,7 +117,7 @@ gitwrit supports two branch modes, configurable globally or per directory.
 
 Those tools store your files on their infrastructure. gitwrit does not. Your writing lives in a plain Git repository that you control, pushed wherever you want—GitHub, GitLab, a private server, anywhere that accepts a Git remote.
 
-Just to be clear, there's defnitely nothing wrong with using any of these tools. I use them!
+Just to be clear, there is absolutely nothing wrong with using any of these tools. I use them!
 
 But I thought making this might be especially useful for proprietary documentation like internal specs, research notes, model cards, experiment logs, etc. For when putting files into a third-party cloud is not an option, or when you want to keep everything essential to your codebase **all in one place**.
 

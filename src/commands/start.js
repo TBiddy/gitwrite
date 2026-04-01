@@ -2,6 +2,7 @@ import { spawn } from 'child_process';
 import { writeFile, mkdir, readFile } from 'fs/promises';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
+import ora from 'ora';
 
 import { print } from '../ui.js';
 import { PID_FILE, GITWRIT_DIR } from '../paths.js';
@@ -77,6 +78,12 @@ export async function start() {
 
   await mkdir(GITWRIT_DIR, { recursive: true });
 
+  // spinner while daemon spins up
+  const spinner = ora({
+    text: 'Starting gitwrit...',
+    color: 'cyan',
+  }).start();
+
   const daemon = spawn(process.execPath, [DAEMON_SCRIPT], {
     detached: true,
     stdio: 'ignore',
@@ -87,18 +94,10 @@ export async function start() {
   });
 
   daemon.unref();
-
   await writeFile(PID_FILE, String(daemon.pid), 'utf8');
-
   await new Promise(r => setTimeout(r, 300));
 
-  print.gap();
-
-  if (wasUnclean) {
-    print.brand('gitwrit is running — picked up where you left off.');
-  } else {
-    print.brand('gitwrit is running.');
-  }
+  spinner.succeed(wasUnclean ? 'Picked up where you left off.' : 'gitwrit is running.');
 
   print.gap();
   print.row('Watching',    config.watch.map(w => w.path).join(', '));

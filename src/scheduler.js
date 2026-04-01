@@ -1,11 +1,10 @@
 import { push, getUnpushedCount } from './git.js';
 import { logger } from './logger.js';
 import { writeState, readState } from './state.js';
+import { notify } from './notify.js';
 
 // ─── scheduler ────────────────────────────────────────────────────────────────
 
-// maintains a set of repos that have unpushed commits and pushes them
-// on a fixed interval. safe to call multiple times — push is idempotent.
 export function createScheduler({ interval, onPushComplete }) {
   const pendingRepos = new Set();
 
@@ -21,13 +20,17 @@ export function createScheduler({ interval, onPushComplete }) {
         await push(dir);
         pendingRepos.delete(dir);
         await logger.push(`${dir}`);
-
-        const state = await readState();
         await writeState({ lastPushedAt: new Date().toISOString() });
 
         if (onPushComplete) onPushComplete(dir);
       } catch (err) {
         await logger.error(`push failed for ${dir}: ${err.message}`);
+
+        // native OS notification — only fires on failure
+        notify(
+          'gitwrit — Push failed',
+          'Your commits are safe locally. Check your network or remote config.'
+        );
       }
     }
   }
@@ -35,12 +38,8 @@ export function createScheduler({ interval, onPushComplete }) {
   const timer = setInterval(flush, interval);
 
   return {
-    // call this after every successful local commit
-    queue: (dir) => pendingRepos.add(dir),
-
-    // flush immediately (e.g. on wake from sleep)
-    flushNow: () => flush(),
-
-    stop: () => clearInterval(timer),
+    queue:    (dir) => pendingRepos.add(dir),
+    flushNow: ()    => flush(),
+    stop:     ()    => clearInterval(timer),
   };
 }
