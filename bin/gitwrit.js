@@ -1,6 +1,9 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander';
+import { createRequire } from 'module';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
 import { init }    from '../src/commands/init.js';
 import { start }   from '../src/commands/start.js';
 import { stop }    from '../src/commands/stop.js';
@@ -15,12 +18,18 @@ import { checkForUpdate, currentVersion } from '../src/updater.js';
 import chalk from 'chalk';
 import { TEAL, PINK } from '../src/ui.js';
 
+// ── dynamic version from package.json ────────────────────────────────────────
+// never hardcode the version — read it directly from package.json so
+// gitwrit --version always matches the published version automatically.
+const require = createRequire(import.meta.url);
+const PKG = require(join(dirname(fileURLToPath(import.meta.url)), '../package.json'));
+
 const program = new Command();
 
 program
   .name('gitwrit')
   .description('Private, versioned writing for people who live in the terminal.')
-  .version('0.2.1')
+  .version(PKG.version)
   .addHelpCommand(false)
   .helpOption(false);
 
@@ -76,8 +85,7 @@ if (process.argv.length <= 2) {
 }
 
 // ── run command then check for updates ───────────────────────────────────────
-// update check runs after the command completes so it never delays the user.
-// shows a single hint line at the bottom if a newer version is available.
+// runs after the command completes — never blocks or delays the user.
 program.parseAsync(process.argv).then(async () => {
   const latest = await checkForUpdate();
   if (latest) {
@@ -88,7 +96,7 @@ program.parseAsync(process.argv).then(async () => {
       chalk.dim(' → ') +
       chalk.hex(PINK).bold(latest) +
       chalk.dim('   Run ') +
-      chalk.white('npm install -g gitwrit') +
+      chalk.white('npm install -g gitwrit@latest') +
       chalk.dim(' to update.')
     );
   }
