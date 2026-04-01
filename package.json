@@ -1,6 +1,6 @@
 {
   "name": "gitwrit",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Private, versioned writing for people who live in the terminal.",
   "type": "module",
   "license": "MIT",
@@ -10,7 +10,8 @@
   },
   "files": [
     "bin",
-    "src"
+    "src",
+    "README.md"
   ],
   "engines": {
     "node": ">=18.0.0"
