@@ -4,7 +4,7 @@
   "description": "Private, versioned writing for people who live in the terminal.",
   "type": "module",
   "bin": {
-    "gitwrit": "./bin/gitwrit.js"
+    "gitwrit": "bin/gitwrit.js"
   },
   "files": [
     "bin",
