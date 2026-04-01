@@ -1,8 +1,10 @@
 {
   "name": "gitwrit",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Private, versioned writing for people who live in the terminal.",
   "type": "module",
+  "license": "MIT",
+  "keywords": ["git", "markdown", "writing", "cli", "documentation", "versioning"],
   "bin": {
     "gitwrit": "bin/gitwrit.js"
   },
