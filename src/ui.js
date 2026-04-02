@@ -1,4 +1,5 @@
 import chalk from 'chalk';
+import { homedir } from 'os';
 
 // ─── palette ──────────────────────────────────────────────────────────────────
 
@@ -57,6 +58,14 @@ export function timeAgo(date) {
   if (seconds < 3600) return `${Math.floor(seconds / 60)}m ago`;
   if (seconds < 86400) return `${Math.floor(seconds / 3600)}h ago`;
   return `${Math.floor(seconds / 86400)}d ago`;
+}
+
+// ─── path display ─────────────────────────────────────────────────────────────
+
+// replaces the full home directory path with ~ for cleaner, safer output.
+// e.g. /Users/terrancebiddle/Documents/notes → ~/Documents/notes
+export function displayPath(p) {
+  return p.replace(homedir(), '~');
 }
 
 // ─── ms formatting ────────────────────────────────────────────────────────────

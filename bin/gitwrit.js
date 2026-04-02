@@ -14,6 +14,7 @@ import { add }     from '../src/commands/add.js';
 import { remove }  from '../src/commands/remove.js';
 import { logs }    from '../src/commands/logs.js';
 import { help }    from '../src/commands/help.js';
+import { demo }    from '../src/commands/demo.js';
 import { checkForUpdate, currentVersion } from '../src/updater.js';
 import chalk from 'chalk';
 import { TEAL, PINK } from '../src/ui.js';
@@ -73,6 +74,10 @@ program.command('logs')
 program.command('help')
   .description('List all available commands')
   .action(help);
+
+program.command('demo')
+  .description('Preview gitwrit\'s UI with placeholder data')
+  .action(demo);
 
 // ── hidden daemon command ─────────────────────────────────────────────────────
 program.command('__daemon', { hidden: true })

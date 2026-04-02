@@ -161,13 +161,19 @@ If that works, restart gitwrit with `gitwrit restart`. If it fails, fix your Git
 
 ---
 
-## Why not Google Docs, Notion, or Obsidian Sync?
+## Why not cloud-based writing tools?
 
-Those tools store your files on their infrastructure. gitwrit does not. Your writing lives in a plain Git repository that you control, pushed wherever you want—GitHub, GitLab, a private server, anywhere that accepts a Git remote.
+Most cloud-based writing and note-taking tools store your files on their 
+infrastructure. gitwrit does not. Your writing lives in a plain Git repository 
+that you control, pushed wherever you want—GitHub, GitLab, a private server, 
+anywhere that accepts a Git remote.
 
-Just to be clear, there is absolutely nothing wrong with using any of these tools. I use them!
+Just to be clear, there is absolutely nothing wrong with using cloud-based 
+tools. Many people use them every day for good reason!
 
-But I thought making this might be especially useful for proprietary documentation like internal specs, research notes, model cards, experiment logs, etc. For when putting files into a third-party cloud is not an option, or when you want to keep everything essential to your codebase **all in one place**.
+But gitwrit might be especially useful when cloud storage isn't an option—for 
+proprietary documentation like internal specs, research notes, model cards, 
+experiment logs, etc. For when putting files into a third-party cloud is not an option, or when you want to keep everything essential to your codebase all in one place.
 
 ---
 
