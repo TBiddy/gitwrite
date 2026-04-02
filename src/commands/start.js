@@ -4,7 +4,7 @@ import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import ora from 'ora';
 
-import { print } from '../ui.js';
+import { print, displayPath } from '../ui.js';
 import { renderBanner } from '../banner.js';
 import { PID_FILE, GITWRIT_DIR } from '../paths.js';
 import { globalConfigExists, loadGlobalConfig } from '../settings.js';
@@ -103,7 +103,7 @@ export async function start() {
   spinner.succeed(wasUnclean ? 'Picked up where you left off.' : 'gitwrit is running.');
 
   print.gap();
-  print.row('Watching',    config.watch.map(w => w.path).join(', '));
+  print.row('Watching',    config.watch.map(w => displayPath(w.path)).join(', '));
   print.row('Files',       config.fileTypes.join(', '));
 
   if (sessionBranch) {
